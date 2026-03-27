@@ -73,9 +73,9 @@ def main():
 
     def calc_pid():
         kp = kp_entry.get() or "0"
-        ki = ki_entry.get() or "0"
-        kd = kd_entry.get() or "0"
-        result_label.config(text=f"Kp={kp}, Ki={ki}, Kd={kd}")
+        ti = ti_entry.get() or "0"
+        td = td_entry.get() or "0"
+        result_label.config(text=f"Kp={kp}, Ti={ti}, Td={td}")
 
     root.mainloop()
 
