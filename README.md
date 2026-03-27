@@ -35,8 +35,3 @@ Do uruchomienia projektu wymagany jest Python 3.x oraz biblioteki:
 * `integration.py` – Moduł zawierający autorską implementację metody trapezów.
 * `signals.py` – Definicje sygnałów wejściowych (prostokątny, trójkątny, sinus).
 * `pid.py` – Klasa realizowalnego sterownika PID.
-
-## 5. Instrukcja Obsługi
-Aby uruchomić symulację, wykonaj komendę:
-```bash
-python main.py
