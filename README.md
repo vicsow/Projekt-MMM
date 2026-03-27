@@ -1,9 +1,42 @@
-# Projekt-MMM
-Eluwina luki, projektMMM lecimy z tym.
-Generalnie to tak, robimy pliki na kazdy generowany sygnal plik na PID i plik na obiekt koncowy G0.
-cos w stylu ze kazdy mozliwy sygnal do uzyskania ma swoj plik. 
-robimy to dyskretnie- so zamiast bawic sie transmitancjami to PID i G0 beda opisane rownaniem roznicowym . 
-Program bedzie dzialal tak ze w kazdym momencie wylicza wartosc sygnalu koncowego i przejsciowych 
-chcialbym tez dodac potem GUi, zeby ladnie bylo to mozna dac rysunek na srodku tego ukladu z
-petla sprzezena zwrotnego i nad kazdym czlonem dac wykres tego co powstaje 
-fajnie tez jakby animacje ogarnac do tych sygnalow zeby widac bylo jak one sie zmieniaja 
+# Projekt nr 3: Symulator Układu z Realizowalnym Sterownikiem PID
+
+## 1. Opis Projektu
+Celem projektu jest implementacja symulatora układu dynamicznego opisanego transmitancją drugiego stopnia wraz z realizowalnym sterownikiem PID w konfiguracji z ujemnym sprzężeniem zwrotnym.
+
+### Model Matematyczny Obiektu
+Układ (obiekt) jest opisany transmitancją operatorową:
+$$G_o(s) = \frac{a_1s + a_0}{b_2s^2 + b_1s + b_0}$$
+
+### Sterownik PID
+Zaimplementowano **realizowalny sterownik PID**. W odróżnieniu od idealnego PID, człon różniczkujący posiada dodatkową filtrację (inercję), co pozwala na jego fizyczną realizację w systemach cyfrowych i ogranicza wpływ szumów wysokoczęstotliwościowych.
+
+## 2. Funkcje Symulatora
+Symulator umożliwia generowanie i analizę odpowiedzi układu dla trzech rodzajów pobudzeń wejściowych:
+1.  **Sygnał Prostokątny** – o skończonym czasie trwania.
+2.  **Sygnał Trójkątny** – (sawtooth/triangle).
+3.  **Sygnał Harmoniczny** – (sinusoidalny).
+
+Program pozwala na swobodną zmianę parametrów:
+* Współczynników transmitancji: $a_1, a_0, b_2, b_1, b_0$.
+* Nastaw regulatora PID: $K_p, T_i, T_d$ oraz stałej czasowej filtra $T_f$.
+* Parametrów sygnałów wejściowych (amplituda, częstotliwość, wypełnienie).
+
+## 3. Implementacja Techniczna
+Do obliczeń numerycznych wykorzystano metodę całkowania **trapezów**, która zapewnia dobrą stabilność i dokładność odwzorowania sygnałów ciągłych w dziedzinie czasu dyskretnego.
+
+### Wymagania systemowe
+Do uruchomienia projektu wymagany jest Python 3.x oraz biblioteki:
+* `numpy` – obliczenia macierzowe i matematyczne.
+* `scipy` – generowanie sygnałów okresowych.
+* `matplotlib` – wizualizacja wyników (wykresy).
+
+## 4. Struktura Projektu
+* `main.py` – Główny skrypt uruchamiający symulację i generujący wykresy.
+* `integration.py` – Moduł zawierający autorską implementację metody trapezów.
+* `signals.py` – Definicje sygnałów wejściowych (prostokątny, trójkątny, sinus).
+* `pid.py` – Klasa realizowalnego sterownika PID.
+
+## 5. Instrukcja Obsługi
+Aby uruchomić symulację, wykonaj komendę:
+```bash
+python main.py
