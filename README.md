@@ -32,6 +32,5 @@ Do uruchomienia projektu wymagany jest Python 3.x oraz biblioteki:
 
 ## 4. Struktura Projektu
 * `main.py` – Główny skrypt uruchamiający symulację i generujący wykresy.
-* `integration.py` – Moduł zawierający autorską implementację metody trapezów.
-* `signals.py` – Definicje sygnałów wejściowych (prostokątny, trójkątny, sinus).
+* `integrate_.py` – Moduł zawierający autorską implementację metody trapezów.
 * `pid.py` – Klasa realizowalnego sterownika PID.
