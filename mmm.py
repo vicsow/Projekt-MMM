@@ -221,11 +221,13 @@ def main():
             ax.clear()
             ax.plot(t, u, 'k--', label='Sygnał Zadany (Wejście)', linewidth=1.5)
             ax.plot(t_out, y_out, 'b-', label='Odpowiedź Układu (Wyjście)', linewidth=2)
+
+            ax.legend(loc = 0, framealpha=0.6, fancybox = True, shadow = False)
             ax.set_title(f'Odpowiedź dla sygnału: {sig_type}')
             ax.set_xlabel('Czas [s]')
             ax.set_ylabel('Amplituda')
             ax.grid(True, linestyle='--')
-            ax.legend()
+            
             
             canvas.draw() # Odświeżenie widoku w Tkinterze
 
