@@ -180,11 +180,11 @@ def main():
             Tf = 0.01 # Mała stała czasowa dla realizowalności pochodnej
 
             # Obliczanie transmitancji układu zamkniętego (jak wczesniej)
-            num_Go = [a1, a0]
-            den_Go = [b2, b1, b0]
+            num_Go = [a1, a0] #licznik transmitancji obiektu
+            den_Go = [b2, b1, b0] #mianownik transmitancji obiektu
             
             num_C = [Kp * Tf + Kd, Kp + Ki * Tf, Ki]
-            den_C = [Tf, 1.0, 0.0]
+            den_C = [Tf, 1.0, 0.0]# mianownik oraz licznik regulatora
             
             num_open = np.polymul(num_C, num_Go)
             den_open = np.polymul(den_C, den_Go)
