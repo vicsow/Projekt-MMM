@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import messagebox
 import numpy as np
 from scipy import signal
 import matplotlib.pyplot as plt
@@ -234,7 +234,7 @@ def main():
         except Exception as e:
             messagebox.showerror("Błąd symulacji", f"Wystąpił nieoczekiwany błąd:\n{str(e)}")
 
-    sim_btn = tk.Button(sidebar, text="URUCHOM SYMULACJĘ", font=("Arial", 10, "bold"), bg="#4CAF50", fg="white", command=run_simulation)
+    sim_btn = tk.Button(sidebar, text="URUCHOM SYMULACJĘ", font=("Arial", 10, "bold"), bg="#4CAF50", fg="black", command=run_simulation)
     sim_btn.grid(row=3, column=0, sticky="ew", pady=15, ipady=10)
 
     root.mainloop()
