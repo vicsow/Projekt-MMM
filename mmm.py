@@ -17,7 +17,6 @@ def main():
     sidebar = tk.Frame(root)
     sidebar.grid(row=0, column=0, sticky="ns", padx=15, pady=10)
 
-    # --- 2. INTEGRACJA WYKRESU (MATPLOTLIB) ---
     fig, ax = plt.subplots(figsize=(7, 5))
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.get_tk_widget().grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
@@ -70,7 +69,7 @@ def main():
     b0_entry.insert(0, "2.0")
     b0_entry.grid(row=0, column=3, padx=2, pady=2)
 
-    # --- 5. SEKCJA SYGNAŁU ---
+    # --- 5. WYBÓR SYGNAŁU ---
     signal_frame = tk.LabelFrame(sidebar, text="Typ Sygnału", padx=10, pady=10)
     signal_frame.grid(row=2, column=0, sticky="ew", pady=5)
     
@@ -155,7 +154,7 @@ def main():
 
     setup_initial_buttons()
 
-    # --- 6. LOGIKA SYMULACJI (SILNIK) ---
+    # --- 6. LOGIKA SYMULACJI ---
     def run_simulation():
         sig_type = current_signal_type.get()
         if not sig_type:
@@ -163,14 +162,13 @@ def main():
             return
 
         try:
-            # Pobieranie parametrów obiektu
+            # Pobieranie parametrów
             a1 = float(a1_entry.get())
             a0 = float(a0_entry.get())
             b2 = float(b2_entry.get())
             b1 = float(b1_entry.get())
             b0 = float(b0_entry.get())
 
-            # Pobieranie parametrów PID i przeliczanie
             Kp = float(kp_entry.get())
             Ti = float(ti_entry.get())
             Td = float(td_entry.get())
@@ -179,7 +177,7 @@ def main():
             Kd = Kp * Td
             Tf = 0.01 # Mała stała czasowa dla realizowalności pochodnej
 
-            # Obliczanie transmitancji układu zamkniętego (jak wczesniej)
+            # Obliczanie transmitancji układu zamkniętego
             num_Go = [a1, a0] #licznik transmitancji obiektu
             den_Go = [b2, b1, b0] #mianownik transmitancji obiektu
             
@@ -214,7 +212,7 @@ def main():
                 width = float(signal_frame.entries["width"].get())
                 u = amp * signal.sawtooth(2 * np.pi * freq * t, width=width)
 
-            # Symulacja systemem LTI
+            # Symulacja
             t_out, y_out, _ = signal.lsim(system, U=u, T=t)
 
             # Rysowanie na osadzonym wykresie
@@ -229,14 +227,13 @@ def main():
             ax.grid(True, linestyle='--')
             
             
-            canvas.draw() # Odświeżenie widoku w Tkinterze
+            canvas.draw()
 
         except ValueError:
             messagebox.showerror("Błąd danych", "Upewnij się, że wszystkie pola zawierają poprawne liczby (używaj kropek, nie przecinków).")
         except Exception as e:
             messagebox.showerror("Błąd symulacji", f"Wystąpił nieoczekiwany błąd:\n{str(e)}")
 
-    # --- 7. PRZYCISK SYMULUJ ---
     sim_btn = tk.Button(sidebar, text="URUCHOM SYMULACJĘ", font=("Arial", 10, "bold"), bg="#4CAF50", fg="white", command=run_simulation)
     sim_btn.grid(row=3, column=0, sticky="ew", pady=15, ipady=10)
 
