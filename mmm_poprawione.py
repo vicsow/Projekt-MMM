@@ -153,7 +153,7 @@ def main():
 
     setup_initial_buttons()
 
-    # --- 5. LOGIKA SYMULACJI ---
+    # --- 5. SYMULACJA ---
     def run_simulation():
         sig_type = current_signal_type.get()
         if not sig_type:
@@ -178,12 +178,12 @@ def main():
 
             # Wektor czasu
             t_max = 20.0
-            #ilość próbek (do utworzenia kroku symulacji Eulera)
+            #Ilość próbek
             N = 2000
             t = np.linspace(0, t_max, N)
             dt = t_max / (N - 1) # Krok czasowy
             
-            # --- GENEROWANIE SYGNAŁÓW WEJŚCIOWYCH ---
+            # --- ENEROWANIE SYGNAŁÓW WEJŚCIOWYCH ---
             if sig_type == "Harmoniczny":
                 amp = float(signal_frame.entries["amp"].get())
                 omega = float(signal_frame.entries["omega"].get())
@@ -211,7 +211,7 @@ def main():
                     saw_wave = np.where(phase < width, -1.0 + 2.0 * (phase / width), 1.0 - 2.0 * ((phase - width) / (1.0 - width)))
                 u = amp * saw_wave
 
-            # ---SYMULACJA UKŁADU ---
+            # --- SYMULACJA UKŁADU (Metoda Eulera) ---
             y_out = np.zeros_like(t)
             
             # Stany obiektu
@@ -267,7 +267,7 @@ def main():
                 e_prev = e
                 v_prev = v
 
-            # --- RYSOWANIE WYNIKÓW ---
+            # --- RYSOWANIE ---
             ax.clear()
             ax.plot(t, u, 'k--', label='Sygnał Zadany (Wejście)', linewidth=1.5)
             ax.plot(t, y_out, 'b-', label='Odpowiedź Układu (Wyjście)', linewidth=2)
