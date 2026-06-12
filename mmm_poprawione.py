@@ -153,7 +153,7 @@ def main():
 
     setup_initial_buttons()
 
-    # --- 5. LOGIKA SYMULACJI (WŁASNA IMPLEMENTACJA) ---
+    # --- 5. LOGIKA SYMULACJI ---
     def run_simulation():
         sig_type = current_signal_type.get()
         if not sig_type:
@@ -178,9 +178,10 @@ def main():
 
             # Wektor czasu
             t_max = 20.0
+            #ilość próbek (do utworzenia kroku symulacji Eulera)
             N = 2000
             t = np.linspace(0, t_max, N)
-            dt = t_max / (N - 1)
+            dt = t_max / (N - 1) # Krok czasowy
             
             # --- RĘCZNE GENEROWANIE SYGNAŁÓW WEJŚCIOWYCH ---
             if sig_type == "Harmoniczny":
@@ -193,7 +194,6 @@ def main():
                 amp = float(signal_frame.entries["amp"].get())
                 freq = float(signal_frame.entries["freq"].get())
                 duty = float(signal_frame.entries["duty"].get())
-                # Generowanie fali prostokątnej (0 do amp)
                 phase = (t * freq) % 1.0
                 u = amp * np.where(phase < duty, 1.0, 0.0)
                 
@@ -203,15 +203,12 @@ def main():
                 width = float(signal_frame.entries["width"].get())
                 phase = (t * freq) % 1.0
                 
-                # Zabezpieczenie szerokości granicznych
                 if width >= 1.0:
                     saw_wave = -1.0 + 2.0 * phase
                 elif width <= 0.0:
                     saw_wave = 1.0 - 2.0 * phase
                 else:
-                    saw_wave = np.where(phase < width,
-                                        -1.0 + 2.0 * (phase / width),
-                                        1.0 - 2.0 * ((phase - width) / (1.0 - width)))
+                    saw_wave = np.where(phase < width, -1.0 + 2.0 * (phase / width), 1.0 - 2.0 * ((phase - width) / (1.0 - width)))
                 u = amp * saw_wave
 
             # --- RĘCZNA SYMULACJA UKŁADU (Metoda Eulera) ---
@@ -246,7 +243,7 @@ def main():
                 # PID - Człon Całkujący
                 integral += e * dt
                 
-                # PID - Człon Różniczkujący z filtrem dolnoprzepustowym (realizowalny)
+                # PID - Człon Różniczkujący realizowalny
                 derivative = (Tf / (Tf + dt)) * derivative + (Kd / (Tf + dt)) * (e - e_prev)
                 
                 # Sygnał sterujący PID
@@ -284,7 +281,7 @@ def main():
             canvas.draw()
 
         except ValueError:
-            messagebox.showerror("Błąd danych", "Upewnij się, że wszystkie pola zawierają poprawne liczby (używaj kropek, nie przecinków).")
+            messagebox.showerror("Błąd danych", "Upewnij się, że wszystkie pola zawierają poprawne liczby (kropki nie przecinki).")
         except ZeroDivisionError:
             messagebox.showerror("Błąd struktury", "Dzielenie przez zero! Sprawdź parametry układu (np. b1 i b2 równe 0).")
         except Exception as e:
