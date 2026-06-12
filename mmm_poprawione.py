@@ -183,7 +183,7 @@ def main():
             t = np.linspace(0, t_max, N)
             dt = t_max / (N - 1) # Krok czasowy
             
-            # --- RĘCZNE GENEROWANIE SYGNAŁÓW WEJŚCIOWYCH ---
+            # --- GENEROWANIE SYGNAŁÓW WEJŚCIOWYCH ---
             if sig_type == "Harmoniczny":
                 amp = float(signal_frame.entries["amp"].get())
                 omega = float(signal_frame.entries["omega"].get())
@@ -211,7 +211,7 @@ def main():
                     saw_wave = np.where(phase < width, -1.0 + 2.0 * (phase / width), 1.0 - 2.0 * ((phase - width) / (1.0 - width)))
                 u = amp * saw_wave
 
-            # --- RĘCZNA SYMULACJA UKŁADU (Metoda Eulera) ---
+            # ---SYMULACJA UKŁADU ---
             y_out = np.zeros_like(t)
             
             # Stany obiektu
