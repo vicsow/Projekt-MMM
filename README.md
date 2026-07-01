@@ -9,7 +9,8 @@ Układ (obiekt) jest opisany transmitancją operatorową:
 $$G_o(s) = \frac{a_1s + a_0}{b_2s^2 + b_1s + b_0}$$
 
 ### Sterownik PID
-Zaimplementowano **realizowalny sterownik PID**. W odróżnieniu od idealnego PID, człon różniczkujący posiada dodatkową filtrację (inercję), co pozwala na jego fizyczną realizację w systemach cyfrowych i ogranicza wpływ szumów wysokoczęstotliwościowych. Jego transmitancja wynosi $$G_{PID} = K_p*(1 + \frac{1}{T_d*s} + \frac{T_i*s}{1+T_f*s})$$
+Zaimplementowano **realizowalny sterownik PID**. W odróżnieniu od idealnego PID, człon różniczkujący posiada dodatkową filtrację (inercję), co pozwala na jego fizyczną realizację w systemach cyfrowych i ogranicza wpływ szumów wysokoczęstotliwościowych. Jego transmitancja wynosi:
+$$G_{PID} = K_p*(1 + \frac{1}{T_d*s} + \frac{T_i*s}{1+T_f*s})$$
 
 ## 2. Funkcje Symulatora
 Symulator umożliwia generowanie i analizę odpowiedzi układu dla trzech rodzajów pobudzeń wejściowych:
